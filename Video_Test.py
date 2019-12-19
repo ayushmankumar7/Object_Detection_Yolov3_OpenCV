@@ -1,21 +1,21 @@
 import numpy as np 
 import cv2 
+import argparse
+import YOLO_loader
+
+parser = argparse.ArgumentParser()
+parser.add_argument('-v', dest='video',default= 'walking.mp4', help= "Input the Video file name with extension")
+
+results = parser.parse_args()
 
 #Load YOLO 
 
-net = cv2.dnn.readNet("yolov3.weights", "cfg/yolov3.cfg")
-classes = []
-with open("coco.names", "r") as f:
-    classes = [line.strip() for line in f.readlines()]
-
-layers_name = net.getLayerNames()
-outputlayers = [layers_name[i[0] - 1] for i in net.getUnconnectedOutLayers()]
-
+net, classes, outputlayers = YOLO_loader.yolo_loader()
 #''''''''''''''''''''''''''''''''''''
 #That's all we need to load our Algorithm
 
 #Loading Image
-cap = cv2.VideoCapture()
+cap = cv2.VideoCapture(results.video)
 
 while(1):
     ret, img = cap.read()
