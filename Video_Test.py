@@ -15,7 +15,7 @@ net, classes, outputlayers = YOLO_loader.yolo_loader()
 #That's all we need to load our Algorithm
 
 #Loading Video
-cap = cv2.VideoCapture(results.video)
+cap = cv2.VideoCapture(0)
 
 while(1):
     ret, img = cap.read()
